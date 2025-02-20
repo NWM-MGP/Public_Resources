@@ -5,7 +5,7 @@
 The classifier is freely available as a Docker container, which includes all prerequisite software and reference data to run new samples. Docker is required and can be installed from https://www.docker.com/. After installing Docker, the Docker container with the classifier can be pulled from a Quay repository using the following command
 
 ```sh
-docker pull quay.io/xxx/meningioma-risk-classifier:v0.1.0
+docker pull quay.io/bioinformaticsnm/public_resources/meningioma-risk-classifier:v0.1.0
 ```
 
 ## Input
@@ -17,10 +17,14 @@ The classifier requires
 The classifier can be run with the following command
 
 ```sh
-docker run -v </path//to/idat_files>:/methylation/input -v </path/to/output_folder>:/methylation/output meningioma-risk-classifier:v0.1.0 Rscript run_meningioma_risk_analysis.R --sample_name <chip_ind>
+docker run -v </path//to/idat_files>:/methylation/input -v </path/to/output_folder>:/methylation/output quay.io/bioinformaticsnm/public_resources/meningioma-risk-classifier:v0.1.0 Rscript run_meningioma_risk_analysis.R --sample_name <chip_ind>
 ```
 
-where </path/to/idat_files> is the full local path to the directory containing the IDAT files you want to run, </path/to/output_folder> is the full local path to the directory where you want the results to be written, and <chip_ind> is the chip and index number for the sample to run, e.g. 208527730003_R06C01.
+where </path/to/idat_files> is the full local path to the directory containing the IDAT files you want to run, </path/to/output_folder> is the full local path to the directory where you want the results to be written, and <chip_ind> is the chip and index number for the sample to run, e.g. 208527730003_R06C01. An example is included below:
+
+```sh
+docker run -v /data/208527730003:/methylation/input -v /results/208527730003:/methylation/output quay.io/bioinformaticsnm/public_resources/meningioma-risk-classifier:v0.1.0 Rscript run_meningioma_risk_analysis.R --sample_name 208527730003_R06C01
+```
 
 IMPORTANT: the IDAT files should be unzipped and named with the chip and index number, e.g. 208527730003_R06C01_Grn.idat and 208527730003_R06C01_Red.idat.
 
@@ -36,7 +40,7 @@ The results printed to the screen and in the classifification results file repre
 Classifier and PCA cluster plot results represent two different types of analysis. The Classifier uses a K-nearest neighbor (KNN) machine learning algorithm to classify a defined set of meningioma tumor samples into risk classes while PCA is a dimensionality reduction and data visualization method. Additionally, the classifier uses differentially methylated probes among the K-means risk classes while the cluster plot uses the most variable probes in the reference dataset. While these two approaches will often produce concordant results, discrepant results are possible. Assay validation was solely based on the KNN Classifier. The PCA plot is provided as additional information for samples that are not a match to any of the risk categories in the KNN Classifier.
 
 ## Citation
-If you publish work using the meningioma risk classifier,, please cite Duckett et al.
+If you publish work using the meningioma risk classifier, please cite Duckett et al.
 
 ## Additional Information
 The meningioma risk methylation classifier is for research use only. While it has been clinically validated at Northwestern Medicine, this validation does not apply to other laboratories.
