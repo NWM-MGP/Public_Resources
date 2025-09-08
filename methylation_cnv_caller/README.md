@@ -2,24 +2,24 @@
  This README contains the necessary instructions for installing and running the methylation array CNV caller developed in Duckett et al. The correction models call losses and amplifications in tumor suppressors and oncogenes based on methylation data. The correction models were developed using 371 training CNS samples and 159 validation CNS samples.
 
 ## Installation
-The classifier is freely available as a Docker container, which includes all prerequisite software and reference data to run new samples. Docker is required and can be installed from https://www.docker.com/. After installing Docker, the Docker container with the classifier can be pulled from a Quay repository using the following command
+The correction models are freely available via a Docker container, which includes all prerequisite software and reference data to run new samples. Docker is required and can be installed from https://www.docker.com/. After installing Docker, the Docker container with the classifier can be pulled from a Quay repository using the following command
 
 ```sh
 docker pull quay.io/bioinformaticsnm/public_resources/methylation-cnv-caller:0.1.0
 ```
 
 ## Input
-The classifier requires
+The analysis requires
 - The Docker container
 - IDAT files from Illumina methylation chips (450K, EPICv1, or EPICv2)
 - Tumor purity of the sample
 - The patient's sex
 
 ## Use
-The classifier can be run with the following command
+CNV analyses can be run with the following command
 
 ```sh
-docker run -v </path/to/idat_files>:/methylation/data -v </path/to/output_folder>:/methylation/results quay.io/bioinformaticsnm/public_resources/methylation-cnv-caller:0.1.0 Rscript run_cnv_analysis.R --sample_name <chip_ind> --tumor_purity <purity> -- sex <sex>
+docker run -v </path/to/idat_files>:/methylation/data -v </path/to/output_folder>:/methylation/results quay.io/bioinformaticsnm/public_resources/methylation-cnv-caller:0.1.0 Rscript run_cnv_analysis.R --sample_name <chip_ind> --tumor_purity <purity> --sex <sex>
 ```
 
 where </path/to/idat_files> is the full local path to the directory containing the IDAT files you want to run, </path/to/output_folder> is the full local path to the directory where you want the results to be written, <chip_ind> is the chip and index number for the sample to run (e.g. 208527730003_R06C01), purity is the tumor purity as a fraction (e.g. 0.8), and sex is the patient's sex (M or F). An example is included below:
@@ -91,7 +91,7 @@ The results printed to the screen and in the cnv results file represent the CNV 
 | PLCB4    | AMP   | 0.97        | 1.00        |
 
 ## Citation
-If you publish work using the meningioma risk classifier, please cite Duckett et al.
+If you publish work using the methylation CNV caller, please cite Duckett et al.
 
 ## Additional Information
 The methylation CNV caller is for research use only.
