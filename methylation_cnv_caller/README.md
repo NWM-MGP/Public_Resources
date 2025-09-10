@@ -1,11 +1,11 @@
-# Methylation CNV Caller
- This README contains the necessary instructions for installing and running the methylation array CNV caller developed in Duckett et al. The correction models call losses and amplifications in tumor suppressors and oncogenes based on methylation data. The correction models were developed using 371 training CNS samples and 159 validation CNS samples.
+# AccuMethCNV
+ This README contains the necessary instructions for installing and running AccuMethCNV, the methylation array CNV caller developed in Duckett et al. AccuMethCNV calls losses and amplifications in tumor suppressors and oncogenes based on methylation array data. It was developed using 371 training CNS samples and 159 validation CNS samples.
 
 ## Installation
-The correction models are freely available via a Docker container, which includes all prerequisite software and reference data to run new samples. Docker is required and can be installed from https://www.docker.com/. After installing Docker, the Docker container with the classifier can be pulled from a Quay repository using the following command
+AccuMethCNV is freely available via a Docker container, which includes all prerequisite software and reference data to run new samples. Docker is required and can be installed from https://www.docker.com/. After installing Docker, the Docker container can be pulled from a Quay repository using the following command
 
 ```sh
-docker pull quay.io/bioinformaticsnm/public_resources/methylation-cnv-caller:0.1.0
+docker pull quay.io/bioinformaticsnm/public_resources/AccuMethCNV:0.1.0
 ```
 
 ## Input
@@ -19,13 +19,13 @@ The analysis requires
 CNV analyses can be run with the following command
 
 ```sh
-docker run -v </path/to/idat_files>:/methylation/data -v </path/to/output_folder>:/methylation/results quay.io/bioinformaticsnm/public_resources/methylation-cnv-caller:0.1.0 Rscript run_cnv_analysis.R --sample_name <chip_ind> --tumor_purity <purity> --sex <sex>
+docker run -v </path/to/idat_files>:/methylation/data -v </path/to/output_folder>:/methylation/results quay.io/bioinformaticsnm/public_resources/AccuMethCNV:0.1.0 Rscript run_cnv_analysis.R --sample_name <chip_ind> --tumor_purity <purity> --sex <sex>
 ```
 
 where </path/to/idat_files> is the full local path to the directory containing the IDAT files you want to run, </path/to/output_folder> is the full local path to the directory where you want the results to be written, <chip_ind> is the chip and index number for the sample to run (e.g. 208527730003_R06C01), purity is the tumor purity as a fraction (e.g. 0.8), and sex is the patient's sex (M or F). An example is included below:
 
 ```sh
-docker run -v /data/208527730003:/methylation/data -v /results/208527730003:/methylation/results quay.io/bioinformaticsnm/public_resources/methylation-cnv-caller:0.1.0 Rscript run_cnv_analysis.R --sample_name 208527730003_R06C01 --tumor_purity 0.8 --sex M
+docker run -v /data/208527730003:/methylation/data -v /results/208527730003:/methylation/results quay.io/bioinformaticsnm/public_resources/AccuMethCNV:0.1.0 Rscript run_cnv_analysis.R --sample_name 208527730003_R06C01 --tumor_purity 0.8 --sex M
 ```
 
 IMPORTANT: the IDAT files should be unzipped and named with the chip and index number, e.g. 208527730003_R06C01_Grn.idat and 208527730003_R06C01_Red.idat.
@@ -91,10 +91,10 @@ The results printed to the screen and in the cnv results file represent the CNV 
 | PLCB4    | AMP   | 0.97        | 1.00        |
 
 ## Citation
-If you publish work using the methylation CNV caller, please cite Duckett et al.
+If you publish work using AccuMethCNV, please cite Duckett et al.
 
 ## Additional Information
-The methylation CNV caller is for research use only.
+AccuMethCNV is for research use only.
 Methylation data is analyzed by conumee and resulting logR values are corrected using linear and spline regressions. Correction models were trained with 371 CNS samples.
 CNV calls include losses and amplifications. Caller validation at NM resulted in high accuracy (median = 93% per sample) in a validation cohort of 159 CNS samples
 This test was developed and its performance characteristics determined by Northwestern Memorial Hospital Pathology Laboratory. It has not been cleared or approved by the U.S. Food and Drug administration.
