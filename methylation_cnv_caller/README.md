@@ -19,13 +19,13 @@ The analysis requires
 CNV analyses can be run with the following command
 
 ```sh
-docker run -v </path/to/idat_files>:/methylation/data -v </path/to/output_folder>:/methylation/results quay.io/bioinformaticsnm/public_resources/accumethcnv:0.1.0 Rscript run_cnv_analysis.R --sample_name <chip_ind> --tumor_purity <purity> --sex <sex>
+docker run -v </path/to/idat_files>:/methylation/data -v </path/to/output_folder>:/methylation/results quay.io/bioinformaticsnm/public_resources/accumethcnv:0.1.0 Rscript /methylation/scripts/run_cnv_analysis.R --sample_name <chip_ind> --tumor_purity <purity> --sex <sex>
 ```
 
 where </path/to/idat_files> is the full local path to the directory containing the IDAT files you want to run, </path/to/output_folder> is the full local path to the directory where you want the results to be written, <chip_ind> is the chip and index number for the sample to run (e.g. 208527730003_R06C01), purity is the tumor purity as a fraction (e.g. 0.8), and sex is the patient's sex (M or F). An example is included below:
 
 ```sh
-docker run -v /data/208527730003:/methylation/data -v /results/208527730003:/methylation/results quay.io/bioinformaticsnm/public_resources/accumethcnv:0.1.0 Rscript run_cnv_analysis.R --sample_name 208527730003_R06C01 --tumor_purity 0.8 --sex M
+docker run -v /data/208527730003:/methylation/data -v /results/208527730003:/methylation/results quay.io/bioinformaticsnm/public_resources/accumethcnv:0.1.0 Rscript /methylation/scripts/run_cnv_analysis.R --sample_name 208527730003_R06C01 --tumor_purity 0.8 --sex M
 ```
 
 IMPORTANT: the IDAT files should be unzipped and named with the chip and index number, e.g. 208527730003_R06C01_Grn.idat and 208527730003_R06C01_Red.idat.
